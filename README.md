@@ -39,3 +39,52 @@ Macaw::get('/Pen/checkMail', 'app\\Mapp\\phpsec\\Filters@checkMail');
 echo Macaw::dispatchbyq();
 
 ```
+
+### 引出返回值 方便统一响应
+```php
+//emptyparm method
+if (empty($ReMethodParams)){
+    return Container::run($controler,$method);
+}
+```
+原有dispatch方法魔改
+```php
+private static $res = null;
+......
+self::$res =  call_user_func_array(self::$callbacks[$pos], $matched);
+......
+public static function Result(){
+      self::dispatch();
+      return self::$res;
+  }
+```
+# 依赖声明
+需要使用wazsmwazsm大佬的IOC库,和noahbuscher大佬的Macaw路由库,特此感谢
+### wazsmwazsm
+项目地址 
+```url
+https://github.com/wazsmwazsm/IOCContainer
+```
+
+安装方法
+```bash
+composer require wazsmwazsm/ioc-container
+```
+
+### Macaw
+项目地址
+```url
+https://github.com/noahbuscher/macaw
+```
+
+安装方法
+```json
+require: {
+    "noahbuscher/macaw": "dev-master"
+}
+```
+```bash
+cpmposer install
+```
+
+
